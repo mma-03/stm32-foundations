@@ -1,6 +1,6 @@
 # Design Notes
 1. **Behaviour**
-    - Holding the button: button stays on/off
+    - Holding the button: LED stays on/off
     - On press: toggle LED (turn it on if off, turn it off if on) 
     - On release: nothing happens
     - If the main loop is busy for a second, and the button is pressed,
@@ -8,7 +8,7 @@
     - If the loop is busy and the button is pressed twice in that second, the callback
       sets a bool flag to true, then it sets to true again
     - Two presses during a busy period merge into one toggle
-    - Accptable for a light switch.
+    - Acceptable for a light switch.
 2. **Modules + functions**
     - When the button goes from high to low (pressed), it should toggle the LED
     - void led_toggle(void)
@@ -22,16 +22,17 @@
     - Encapsulation: button interrupt is a button implementation detail, main should't care
     - only set flag if GPIO_Pin == B1_Pin
 4. **The flag**
-    - Flag lives in button.c
+    - press_pending (flag) lives in button.c
     - It is volatile, since main never touches flag
-    - The flag is changed by an interrupt, outside normal program flow, so button_is_pressed()
-      must read it fresh from memory everytime instead of using a stale register copy
+    - The flag is changed by an interrupt, outside normal program flow, so button_was_pressed() must read it fresh from memory everytime instead of using a stale register copy
     - The callback function sets it and the event function clears it when main asks
 5. **main.c**
-   **Startup:**
+
+   Startup:
     - LED is off on startup (led_init())
     - Flags are off at startup (button_init())
-   **Repeats:**
+
+   Repeats:
     - Ask the button whether a press has happened. If yes, toggle the LED.
 
 
