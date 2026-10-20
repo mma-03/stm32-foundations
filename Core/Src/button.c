@@ -21,7 +21,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 
 // check if the button was pressed
 bool button_was_pressed(void) {
-    // Blokc interrupts so a press arriving between the read and the clear isn't lost
+    // Block interrupts so a press arriving between the read and the clear isn't lost
     __disable_irq(); // pause all interrupts
     bool press_status = press_pending; 
     press_pending = false;

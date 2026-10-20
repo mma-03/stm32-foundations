@@ -81,7 +81,7 @@
     - HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     - htim is a pointer to a struct describing the timer that fired
     - It's instance field says which timer it is
-    - Access a struct field thorugh a pointer (htim->Instance)
+    - Access a struct field through a pointer (htim->Instance)
     - if  (htim->Instance == TIM3) { sets a flag for the tick }
 4. **Pausing:**
     - When paused, keep the timer running, and have main ignore ticks while paused.
@@ -92,4 +92,3 @@
     - Loop: Loop checks for tick flag event from the timer, and blinks the LED. Also checks button_was_pressed() event to pause the blinking (timer continues to run in background, main ignores it's flags).
     - Ignore: call tick_elapsed() every loop, paused or not, so the flag is always consumed. Only act on the result if not paused. Avoids stale flags when resumes.
     - If the button was pressed: flip the paused state. If a tick elapsed and we're not paused: toggle the LED.
-

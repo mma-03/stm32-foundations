@@ -1,5 +1,5 @@
-#ifndef _BUTTON_H
-#define _BUTTON_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include <stdbool.h>
 
