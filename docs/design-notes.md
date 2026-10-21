@@ -124,9 +124,11 @@
 
 5. **main:**
     Startup:
+
     - button_init, led_init, tick_init, serial_init
     - startup banner serial_printf("Welcome to STM32 Foundations: Blinker\r\n")
     - bool paused = false, uint32_t toggle_count = 0
+
     Loop:
     - if ticked and not paused: toggle led, toggle_count++, serial_printf("Toggles: %lu\r\n, toggle_count)
     - if button was pressed: toggle pause, if(paused): serial_printf("Paused\r\n") else: serial_printf("Resumed\r\n")

@@ -21,10 +21,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdint.h>
 #include <string.h>
 #include "led.h"
 #include "button.h"
 #include "tick.h"
+#include "serial.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,8 +102,13 @@ int main(void)
   led_init();
   button_init();
   tick_init();
+  serial_init();
+
+  char startup_banner[] = "Welcome to STM32 Foundations: Blinker\r\n";
+  serial_printf(startup_banner);
 
   bool paused = false;
+  uint32_t toggle_count = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,10 +122,17 @@ int main(void)
 
     if(ticked && !paused) {
       led_toggle();
+      toggle_count++;
+      serial_printf("Toggles: %lu\r\n", toggle_count);
     }
 
     if (button_was_pressed()) {
       paused = !paused;
+      if (paused) {
+        serial_printf("Paused\r\n");
+      } else {
+        serial_printf("Resumed\r\n");
+      }
     }
   }
   /* USER CODE END 3 */
